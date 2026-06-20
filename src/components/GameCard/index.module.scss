@@ -1,0 +1,150 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+    transform: scale(0.99);
+  }
+}
+
+.cardHeader {
+  margin-bottom: $spacing-sm;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  @include text-ellipsis;
+  flex: 1;
+  margin-right: $spacing-sm;
+}
+
+.subtitle {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  @include text-ellipsis-multi(1);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-bottom: $spacing-md;
+}
+
+.infoGrid {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.infoItem {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8rpx;
+
+  &:nth-last-child(-n+2) {
+    margin-bottom: 0;
+  }
+}
+
+.infoLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-right: 8rpx;
+  white-space: nowrap;
+}
+
+.infoValue {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.costValue {
+  color: $color-accent;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.organizer {
+  display: flex;
+  align-items: center;
+}
+
+.organizerAvatar {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: $radius-round;
+  margin-right: 8rpx;
+}
+
+.organizerName {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  margin-right: 8rpx;
+}
+
+.organizerLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  background-color: $color-bg-primary-light;
+  padding: 2rpx 10rpx;
+  border-radius: $radius-round;
+  white-space: nowrap;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+}
+
+.locationIcon {
+  font-size: $font-size-sm;
+  margin-right: 4rpx;
+}
+
+.locationText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  @include text-ellipsis;
+  max-width: 240rpx;
+}
+
+.waitlistBanner {
+  margin-top: $spacing-md;
+  padding: $spacing-sm $spacing-md;
+  background-color: rgba(253, 203, 110, 0.15);
+  border-radius: $radius-sm;
+  @include flex-center;
+}
+
+.waitlistText {
+  font-size: $font-size-sm;
+  color: $color-accent-light;
+  font-weight: $font-weight-medium;
+}

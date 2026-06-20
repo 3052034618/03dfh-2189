@@ -1,0 +1,112 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  position: relative;
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+    transform: scale(0.98);
+  }
+}
+
+.cover {
+  width: 100%;
+  height: 200rpx;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200rpx;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.content {
+  padding: $spacing-md $spacing-lg $spacing-lg;
+}
+
+.categoryTag {
+  display: inline-flex;
+  align-items: center;
+  background-color: $color-bg-primary-light;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-round;
+  margin-bottom: 8rpx;
+}
+
+.categoryIcon {
+  font-size: $font-size-xs;
+  margin-right: 4rpx;
+}
+
+.categoryText {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.name {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: 4rpx;
+  @include text-ellipsis;
+}
+
+.description {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  display: block;
+  margin-bottom: $spacing-md;
+  @include text-ellipsis-multi(1);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tags {
+  display: flex;
+  gap: 8rpx;
+}
+
+.memberCount {
+  display: flex;
+  align-items: center;
+}
+
+.memberIcon {
+  font-size: $font-size-sm;
+  margin-right: 4rpx;
+}
+
+.memberText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.joinedBadge {
+  position: absolute;
+  top: $spacing-md;
+  right: $spacing-md;
+  background-color: $color-primary;
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
+}
+
+.joinedText {
+  font-size: $font-size-xs;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}

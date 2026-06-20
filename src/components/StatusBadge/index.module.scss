@@ -1,0 +1,50 @@
+@use '@/styles/variables.scss' as *;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
+  white-space: nowrap;
+}
+
+.badgeText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-tight;
+}
+
+.recruiting {
+  background-color: rgba(0, 180, 42, 0.1);
+  .badgeText {
+    color: $color-status-recruiting;
+  }
+}
+
+.locked {
+  background-color: rgba(108, 92, 231, 0.1);
+  .badgeText {
+    color: $color-status-locked;
+  }
+}
+
+.playing {
+  background-color: rgba(255, 125, 0, 0.1);
+  .badgeText {
+    color: $color-status-playing;
+  }
+}
+
+.finished {
+  background-color: rgba(134, 144, 156, 0.1);
+  .badgeText {
+    color: $color-status-finished;
+  }
+}
+
+.cancelled {
+  background-color: rgba(245, 63, 63, 0.1);
+  .badgeText {
+    color: $color-status-cancelled;
+  }
+}

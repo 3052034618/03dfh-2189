@@ -1,0 +1,364 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background-color: $color-bg-page;
+  padding-bottom: 180rpx;
+}
+
+.header {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  padding: $spacing-lg;
+  color: $color-text-white;
+}
+
+.scriptName {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.gameTitle {
+  font-size: $font-size-md;
+  color: rgba(255, 255, 255, 0.85);
+  display: block;
+  margin-bottom: $spacing-md;
+}
+
+.headerTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.headerTag {
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
+  background-color: rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+
+.headerTagText {
+  font-size: $font-size-xs;
+  color: $color-text-white;
+}
+
+.content {
+  padding: 0 $spacing-lg;
+  margin-top: -$spacing-md;
+}
+
+.infoCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.statusBadge {
+  padding: 6rpx 20rpx;
+  border-radius: $radius-round;
+  white-space: nowrap;
+}
+
+.statusText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
+
+.statusRecruiting {
+  background-color: rgba(0, 180, 42, 0.1);
+  .statusText {
+    color: $color-status-recruiting;
+  }
+}
+
+.statusLocked {
+  background-color: rgba(108, 92, 231, 0.1);
+  .statusText {
+    color: $color-status-locked;
+  }
+}
+
+.statusPlaying {
+  background-color: rgba(255, 125, 0, 0.1);
+  .statusText {
+    color: $color-status-playing;
+  }
+}
+
+.statusFinished {
+  background-color: rgba(134, 144, 156, 0.1);
+  .statusText {
+    color: $color-status-finished;
+  }
+}
+
+.circleTag {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  background-color: $color-bg-primary-light;
+  padding: 6rpx 16rpx;
+  border-radius: $radius-round;
+  white-space: nowrap;
+}
+
+.infoGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md $spacing-lg;
+}
+
+.infoItem {
+  width: calc(50% - #{$spacing-lg} / 2);
+  display: flex;
+  flex-direction: column;
+}
+
+.infoLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-bottom: 4rpx;
+}
+
+.infoValue {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.infoValueHighlight {
+  color: $color-accent;
+}
+
+.descriptionCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.descriptionTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.descriptionText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+.playerSection {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.sectionTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.sectionCount {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.playerList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+}
+
+.playerItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100rpx;
+}
+
+.playerAvatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: $radius-round;
+  margin-bottom: 4rpx;
+}
+
+.playerName {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  @include text-ellipsis;
+  max-width: 100rpx;
+  text-align: center;
+}
+
+.organizerMark {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.emptySlot {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: $radius-round;
+  border: 2rpx dashed $color-border;
+  @include flex-center;
+  margin-bottom: 4rpx;
+}
+
+.emptySlotText {
+  font-size: $font-size-lg;
+  color: $color-text-disabled;
+}
+
+.waitlistSection {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.waitlistItem {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm 0;
+  border-bottom: 1rpx solid $color-divider;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.waitlistNumber {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: $radius-round;
+  background-color: rgba(253, 203, 110, 0.2);
+  @include flex-center;
+  margin-right: $spacing-sm;
+}
+
+.waitlistNumberText {
+  font-size: $font-size-sm;
+  color: $color-accent-light;
+  font-weight: $font-weight-semibold;
+}
+
+.waitlistAvatar {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: $radius-round;
+  margin-right: $spacing-sm;
+}
+
+.waitlistName {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  flex: 1;
+}
+
+.waitlistTime {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.organizerCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  display: flex;
+  align-items: center;
+}
+
+.organizerAvatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: $radius-round;
+  margin-right: $spacing-md;
+}
+
+.organizerInfo {
+  flex: 1;
+}
+
+.organizerName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+}
+
+.organizerRole {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $spacing-md $spacing-lg;
+  padding-bottom: calc(#{$spacing-md} + env(safe-area-inset-bottom));
+  background-color: $color-bg-card;
+  box-shadow: $shadow-float;
+}
+
+.joinBtn {
+  @include button-reset;
+  width: 100%;
+  height: $button-height-lg;
+  border-radius: $radius-button;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.joinBtnActive {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+}
+
+.joinBtnWaitlist {
+  background: linear-gradient(135deg, $color-accent-light 0%, #f0a500 100%);
+  color: $color-text-white;
+}
+
+.joinBtnDisabled {
+  background-color: $color-bg-hover;
+  color: $color-text-disabled;
+}

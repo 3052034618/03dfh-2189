@@ -1,0 +1,19 @@
+@use '@/styles/variables.scss' as *;
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2rpx 12rpx;
+  border-radius: $radius-xs;
+  white-space: nowrap;
+}
+
+.tagMedium {
+  padding: 4rpx 16rpx;
+  border-radius: $radius-sm;
+}
+
+.tagText {
+  font-size: $font-size-xs;
+  line-height: $line-height-tight;
+}
