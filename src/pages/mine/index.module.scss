@@ -142,6 +142,23 @@
   color: $color-text-disabled;
 }
 
+.menuBadge {
+  min-width: 36rpx;
+  height: 36rpx;
+  padding: 0 10rpx;
+  border-radius: $radius-round;
+  background-color: $color-primary;
+  @include flex-center;
+  margin-right: $spacing-sm;
+}
+
+.menuBadgeText {
+  font-size: $font-size-xs;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+  line-height: 1;
+}
+
 .preferences {
   margin: $spacing-lg;
 }

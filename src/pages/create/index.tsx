@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { View, Text, Input, Textarea } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import { useAppStore } from '@/store/appStore'
+import { mockCircles } from '@/data/circles'
 import type { ScriptTag } from '@/types/game'
 import styles from './index.module.scss'
 
 const SCRIPT_TAGS: ScriptTag[] = ['新手', '欢乐', '硬核', '情感', '阵营', '恐怖', '机制', '推理']
 
 const CreatePage: React.FC = () => {
-  const { circles } = useAppStore()
-  const myCircles = circles.filter((c) => c.isJoined)
+  const { circles, setCircles, addGame } = useAppStore()
+
+  useEffect(() => {
+    if (circles.length === 0) {
+      setCircles(mockCircles)
+    }
+  }, [])
+
+  const myCircles = useMemo(() => circles.filter((c) => c.isJoined), [circles])
 
   const [scriptName, setScriptName] = useState('')
   const [title, setTitle] = useState('')
@@ -33,9 +41,25 @@ const CreatePage: React.FC = () => {
     setAllowSpectate(!allowSpectate)
   }
 
+  const handleGoCreateCircle = () => {
+    Taro.switchTab({ url: '/pages/circles/index' })
+  }
+
   const handleSubmit = () => {
     if (!scriptName.trim()) {
       Taro.showToast({ title: '请填写剧本名', icon: 'none' })
+      return
+    }
+    if (myCircles.length === 0) {
+      Taro.showModal({
+        title: '还没有加入车圈',
+        content: '请先去车圈页面创建或加入车圈后再发车',
+        showCancel: true,
+        confirmText: '去创建',
+        success: (res) => {
+          if (res.confirm) handleGoCreateCircle()
+        }
+      })
       return
     }
     if (!selectedCircle) {
@@ -47,23 +71,26 @@ const CreatePage: React.FC = () => {
       return
     }
 
-    console.info('[Create] 发车成功', {
-      scriptName,
-      title,
-      selectedTags,
-      selectedCircle,
-      playerCount,
-      cost,
-      location,
-      gameTime,
+    const circleObj = myCircles.find((c) => c.id === selectedCircle)
+
+    addGame({
+      title: title.trim(),
+      scriptName: scriptName.trim(),
+      tags: selectedTags,
+      circleId: selectedCircle,
+      circleName: circleObj?.name || '',
+      playerCount: parseInt(playerCount) || 6,
+      cost: parseFloat(cost) || 0,
+      location: location.trim(),
+      gameTime: gameTime.trim(),
       allowSpectate,
-      description
+      description: description.trim()
     })
 
     Taro.showToast({ title: '发车成功！', icon: 'success' })
     setTimeout(() => {
       Taro.switchTab({ url: '/pages/home/index' })
-    }, 1500)
+    }, 1200)
   }
 
   const handleDraft = () => {
@@ -129,28 +156,47 @@ const CreatePage: React.FC = () => {
           <Text className={styles.formLabel}>
             选择车圈<Text className={styles.formRequired}>*</Text>
           </Text>
-          {myCircles.map((circle) => (
-            <View
-              key={circle.id}
-              className={classnames(
-                styles.circleOption,
-                selectedCircle === circle.id && styles.circleOptionSelected
-              )}
-              onClick={() => setSelectedCircle(circle.id)}
-            >
-              <Text
-                className={classnames(
-                  styles.circleOptionName,
-                  selectedCircle === circle.id && styles.circleOptionNameSelected
-                )}
-              >
-                {circle.name}
+
+          {myCircles.length === 0 ? (
+            <View className={styles.noCirclesCard}>
+              <Text className={styles.noCirclesIcon}>🎭</Text>
+              <Text className={styles.noCirclesTitle}>还没有加入车圈</Text>
+              <Text className={styles.noCirclesDesc}>
+                加入车圈后才能定向约本，避免大群公开抢名额
               </Text>
-              {selectedCircle === circle.id && (
-                <Text className={styles.circleOptionCheck}>✓</Text>
-              )}
+              <View className={styles.goCreateBtn} onClick={handleGoCreateCircle}>
+                <Text className={styles.goCreateBtnText}>去创建车圈</Text>
+              </View>
             </View>
-          ))}
+          ) : (
+            myCircles.map((circle) => (
+              <View
+                key={circle.id}
+                className={classnames(
+                  styles.circleOption,
+                  selectedCircle === circle.id && styles.circleOptionSelected
+                )}
+                onClick={() => setSelectedCircle(circle.id)}
+              >
+                <View style={{ flex: 1 }}>
+                  <Text
+                    className={classnames(
+                      styles.circleOptionName,
+                      selectedCircle === circle.id && styles.circleOptionNameSelected
+                    )}
+                  >
+                    {circle.name}
+                  </Text>
+                  <Text className={styles.circleOptionDesc}>
+                    {circle.category} · {circle.memberCount}人
+                  </Text>
+                </View>
+                {selectedCircle === circle.id && (
+                  <Text className={styles.circleOptionCheck}>✓</Text>
+                )}
+              </View>
+            ))
+          )}
         </View>
 
         <View className={styles.formCard}>

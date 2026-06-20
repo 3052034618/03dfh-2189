@@ -1,20 +1,358 @@
 @use '@/styles/variables.scss' as *;
 
-.container {
-  @include flex-center;
-  flex-direction: column;
+.page {
   min-height: 100vh;
   background-color: $color-bg-page;
+  padding-bottom: 180rpx;
 }
 
-.title {
-  font-size: $font-size-lg;
-  color: $color-text-primary;
-  font-weight: $font-weight-semibold;
-  margin-bottom: $spacing-sm;
+.header {
+  padding: $spacing-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
 }
 
-.hint {
+.headerTitle {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.headerSubtitle {
   font-size: $font-size-md;
+  color: rgba(255, 255, 255, 0.85);
+  display: block;
+}
+
+.content {
+  padding: 0 $spacing-lg;
+  margin-top: -$spacing-md;
+}
+
+.card {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.sectionTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-md;
+}
+
+.gameSelectWrap {
+  margin-bottom: $spacing-md;
+}
+
+.gameSelectLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.gameSelectOption {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md;
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-sm;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+  }
+}
+
+.gameSelectOptionSelected {
+  background-color: $color-bg-primary-light;
+  border-color: $color-primary;
+}
+
+.gameSelectOptionInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.gameSelectOptionName {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  display: block;
+  @include text-ellipsis;
+}
+
+.gameSelectOptionMeta {
+  font-size: $font-size-xs;
   color: $color-text-tertiary;
+  margin-top: 4rpx;
+}
+
+.gameSelectOptionCheck {
+  font-size: $font-size-lg;
+  color: $color-primary;
+  margin-left: $spacing-sm;
+}
+
+.playerRow {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md 0;
+  border-bottom: 1rpx solid $color-divider;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.playerAvatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: $radius-round;
+  margin-right: $spacing-md;
+  flex-shrink: 0;
+}
+
+.playerMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.playerName {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  display: block;
+}
+
+.playerBadges {
+  display: flex;
+  gap: 8rpx;
+  margin-top: 4rpx;
+  flex-wrap: wrap;
+}
+
+.playerBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2rpx 12rpx;
+  border-radius: $radius-round;
+  background-color: $color-bg-page;
+  white-space: nowrap;
+}
+
+.playerBadgeDanger {
+  background-color: rgba(245, 63, 63, 0.12);
+}
+
+.playerBadgeSuccess {
+  background-color: rgba(0, 180, 42, 0.12);
+}
+
+.playerBadgeText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.playerBadgeTextDanger {
+  color: $color-error;
+}
+
+.playerBadgeTextSuccess {
+  color: $color-success;
+}
+
+.playerActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.actionRow {
+  display: flex;
+  gap: 8rpx;
+}
+
+.actionBtn {
+  @include button-reset;
+  padding: 4rpx 16rpx;
+  height: auto;
+  min-height: 48rpx;
+  border-radius: $radius-round;
+  background-color: $color-bg-page;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.85;
+  }
+}
+
+.actionBtnActive {
+  background-color: $color-bg-primary-light;
+  border-color: $color-primary;
+}
+
+.actionBtnDanger {
+  background-color: rgba(245, 63, 63, 0.08);
+  border-color: transparent;
+
+  &.actionBtnActive {
+    background-color: rgba(245, 63, 63, 0.15);
+    border-color: $color-error;
+  }
+}
+
+.actionBtnSuccess {
+  background-color: rgba(0, 180, 42, 0.08);
+  border-color: transparent;
+
+  &.actionBtnActive {
+    background-color: rgba(0, 180, 42, 0.15);
+    border-color: $color-success;
+  }
+}
+
+.actionBtnText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.actionBtnTextActive {
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.actionBtnTextDangerActive {
+  color: $color-error;
+  font-weight: $font-weight-medium;
+}
+
+.actionBtnTextSuccessActive {
+  color: $color-success;
+  font-weight: $font-weight-medium;
+}
+
+.commentWrap {
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+}
+
+.commentTextArea {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  width: 100%;
+  min-height: 160rpx;
+}
+
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $spacing-md $spacing-lg;
+  padding-bottom: calc(#{$spacing-md} + env(safe-area-inset-bottom));
+  background-color: $color-bg-card;
+  box-shadow: $shadow-float;
+}
+
+.submitBtn {
+  @include button-reset;
+  width: 100%;
+  height: $button-height-lg;
+  border-radius: $radius-button;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-white;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.submitBtnDisabled {
+  background: $color-bg-hover;
+  color: $color-text-disabled;
+}
+
+.detailOverview {
+  display: flex;
+  gap: $spacing-lg;
+  padding: $spacing-md 0;
+  margin-bottom: $spacing-md;
+  border-bottom: 1rpx solid $color-divider;
+}
+
+.detailOverviewItem {
+  flex: 1;
+  text-align: center;
+}
+
+.detailOverviewNumber {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  display: block;
+}
+
+.detailOverviewLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+  margin-top: 4rpx;
+}
+
+.detailCommentCard {
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+}
+
+.detailCommentLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.detailCommentText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+.preferenceRow {
+  display: flex;
+  gap: 8rpx;
+  margin-top: 8rpx;
+  flex-wrap: wrap;
+}
+
+.preferenceTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
+  background-color: $color-bg-primary-light;
+  white-space: nowrap;
+}
+
+.preferenceTagText {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
 }

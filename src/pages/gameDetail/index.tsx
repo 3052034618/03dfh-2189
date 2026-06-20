@@ -108,6 +108,10 @@ const GameDetailPage: React.FC = () => {
                 {game.allowSpectate ? '✅ 可以' : '❌ 不行'}
               </Text>
             </View>
+            <View className={classnames(styles.infoItem, styles.infoItemWide)}>
+              <Text className={styles.infoLabel}>📍 集合地点</Text>
+              <Text className={styles.infoValue}>{game.location}</Text>
+            </View>
           </View>
         </View>
 

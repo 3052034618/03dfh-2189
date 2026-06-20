@@ -134,9 +134,65 @@
   color: $color-primary;
 }
 
+.circleOptionDesc {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+}
+
 .circleOptionCheck {
   font-size: $font-size-lg;
   color: $color-primary;
+}
+
+.noCirclesCard {
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+  padding: $spacing-xl $spacing-lg;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noCirclesIcon {
+  font-size: 72rpx;
+  margin-bottom: $spacing-sm;
+}
+
+.noCirclesTitle {
+  font-size: $font-size-lg;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.noCirclesDesc {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  display: block;
+  margin-bottom: $spacing-lg;
+  line-height: $line-height-normal;
+}
+
+.goCreateBtn {
+  @include button-reset;
+  padding: 0 48rpx;
+  height: $button-height-md;
+  border-radius: $radius-button;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.goCreateBtnText {
+  font-size: $font-size-md;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
 }
 
 .toggleRow {

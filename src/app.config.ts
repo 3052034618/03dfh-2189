@@ -7,6 +7,7 @@ export default defineAppConfig({
     'pages/gameDetail/index',
     'pages/circleDetail/index',
     'pages/review/index',
+    'pages/reviewList/index',
     'pages/memberDetail/index'
   ],
   window: {

@@ -1,21 +1,31 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useAppStore } from '@/store/appStore'
-import Tag from '@/components/Tag'
+import { mockReviews } from '@/data/reviews'
 import styles from './index.module.scss'
 
 const MENU_ITEMS = [
-  { icon: '📋', text: '我的报名', url: '/pages/gameDetail/index' },
-  { icon: '🎭', text: '我的车圈', url: '/pages/circleDetail/index' },
-  { icon: '📝', text: '我的复盘', url: '/pages/review/index' },
-  { icon: '⭐', text: '收藏的剧本', url: '/pages/gameDetail/index' },
-  { icon: '📢', text: '通知设置', url: '/pages/gameDetail/index' },
-  { icon: '⚙️', text: '设置', url: '/pages/gameDetail/index' }
+  { icon: '📋', text: '我的报名', url: '/pages/gameDetail/index', key: 'enroll' },
+  { icon: '🎭', text: '我的车圈', url: '/pages/circleDetail/index', key: 'circle' },
+  { icon: '📝', text: '我的复盘', url: '/pages/reviewList/index', key: 'review' },
+  { icon: '⭐', text: '收藏的剧本', url: '/pages/gameDetail/index', key: 'star' },
+  { icon: '📢', text: '通知设置', url: '/pages/gameDetail/index', key: 'notify' },
+  { icon: '⚙️', text: '设置', url: '/pages/gameDetail/index', key: 'setting' }
 ]
 
 const MinePage: React.FC = () => {
-  const { currentUser } = useAppStore()
+  const { currentUser, reviews, setReviews } = useAppStore()
+
+  useEffect(() => {
+    if (reviews.length === 0) {
+      setReviews(mockReviews)
+    }
+  }, [])
+
+  const myReviewCount = useMemo(() => {
+    return reviews.filter((r) => r.organizerId === currentUser.id).length
+  }, [reviews, currentUser.id])
 
   const handleMenuClick = (url: string) => {
     Taro.navigateTo({ url })
@@ -50,8 +60,8 @@ const MinePage: React.FC = () => {
           <Text className={styles.statLabel}>DM次数</Text>
         </View>
         <View className={styles.statItem}>
-          <Text className={styles.statValue}>{currentUser.circleCount}</Text>
-          <Text className={styles.statLabel}>加入车圈</Text>
+          <Text className={styles.statValue}>{myReviewCount}</Text>
+          <Text className={styles.statLabel}>复盘记录</Text>
         </View>
       </View>
 
@@ -73,12 +83,17 @@ const MinePage: React.FC = () => {
         <View className={styles.menuCard}>
           {MENU_ITEMS.map((item) => (
             <View
-              key={item.text}
+              key={item.key}
               className={styles.menuItem}
               onClick={() => handleMenuClick(item.url)}
             >
               <Text className={styles.menuItemIcon}>{item.icon}</Text>
               <Text className={styles.menuItemText}>{item.text}</Text>
+              {item.key === 'review' && myReviewCount > 0 && (
+                <View className={styles.menuBadge}>
+                  <Text className={styles.menuBadgeText}>{myReviewCount}</Text>
+                </View>
+              )}
               <Text className={styles.menuItemArrow}>›</Text>
             </View>
           ))}
