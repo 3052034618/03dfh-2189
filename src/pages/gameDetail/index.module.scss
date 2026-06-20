@@ -263,6 +263,13 @@
   }
 }
 
+.waitlistItemMine {
+  background-color: rgba(108, 92, 231, 0.06);
+  margin: 0 (-$spacing-sm);
+  padding: $spacing-sm $spacing-sm;
+  border-radius: $radius-md;
+}
+
 .waitlistNumber {
   width: 48rpx;
   height: 48rpx;
@@ -272,10 +279,18 @@
   margin-right: $spacing-sm;
 }
 
+.waitlistNumberMine {
+  background-color: $color-primary;
+}
+
 .waitlistNumberText {
   font-size: $font-size-sm;
   color: $color-accent-light;
   font-weight: $font-weight-semibold;
+}
+
+.waitlistNumberTextMine {
+  color: $color-text-white;
 }
 
 .waitlistAvatar {
@@ -285,15 +300,40 @@
   margin-right: $spacing-sm;
 }
 
+.waitlistInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .waitlistName {
   font-size: $font-size-md;
   color: $color-text-primary;
-  flex: 1;
+}
+
+.waitlistMineTag {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+  margin-left: 4rpx;
 }
 
 .waitlistTime {
   font-size: $font-size-xs;
   color: $color-text-tertiary;
+}
+
+.waitlistTopBadge {
+  background-color: rgba(253, 203, 110, 0.2);
+  padding: 4rpx 12rpx;
+  border-radius: $radius-round;
+}
+
+.waitlistTopBadgeText {
+  font-size: $font-size-xs;
+  color: $color-accent-light;
+  font-weight: $font-weight-medium;
 }
 
 .organizerCard {

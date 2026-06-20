@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useAppStore } from '@/store/appStore'
-import { mockReviews } from '@/data/reviews'
 import styles from './index.module.scss'
 
 const MENU_ITEMS = [
@@ -15,13 +14,7 @@ const MENU_ITEMS = [
 ]
 
 const MinePage: React.FC = () => {
-  const { currentUser, reviews, setReviews } = useAppStore()
-
-  useEffect(() => {
-    if (reviews.length === 0) {
-      setReviews(mockReviews)
-    }
-  }, [])
+  const { currentUser, reviews } = useAppStore()
 
   const myReviewCount = useMemo(() => {
     return reviews.filter((r) => r.organizerId === currentUser.id).length

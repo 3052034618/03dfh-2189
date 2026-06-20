@@ -1,22 +1,15 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { View, Text, Input, Textarea } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import { useAppStore } from '@/store/appStore'
-import { mockCircles } from '@/data/circles'
 import type { ScriptTag } from '@/types/game'
 import styles from './index.module.scss'
 
 const SCRIPT_TAGS: ScriptTag[] = ['新手', '欢乐', '硬核', '情感', '阵营', '恐怖', '机制', '推理']
 
 const CreatePage: React.FC = () => {
-  const { circles, setCircles, addGame } = useAppStore()
-
-  useEffect(() => {
-    if (circles.length === 0) {
-      setCircles(mockCircles)
-    }
-  }, [])
+  const { circles, addGame } = useAppStore()
 
   const myCircles = useMemo(() => circles.filter((c) => c.isJoined), [circles])
 

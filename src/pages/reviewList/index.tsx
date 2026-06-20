@@ -1,27 +1,25 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { View, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import { useAppStore } from '@/store/appStore'
-import { mockReviews } from '@/data/reviews'
-import { mockGames } from '@/data/games'
 import { formatTime } from '@/utils/format'
 import styles from './index.module.scss'
 
 const ReviewListPage: React.FC = () => {
-  const { reviews, setReviews, games, setGames, currentUser } = useAppStore()
-
-  useEffect(() => {
-    if (games.length === 0) setGames(mockGames)
-    if (reviews.length === 0) setReviews(mockReviews)
-  }, [])
+  const { reviews, games, currentUser } = useAppStore()
 
   const myReviews = useMemo(() => {
     return reviews.filter((r) => r.organizerId === currentUser.id)
   }, [reviews, currentUser.id])
 
   const handleGoCreate = () => {
-    const finishedGames = games.filter((g) => g.status === 'locked' || g.status === 'recruiting')
+    const finishedGames = games.filter((g) =>
+      g.players.some((p) => p.id === currentUser.id) ||
+      g.organizerId === currentUser.id ||
+      g.status === 'locked' ||
+      g.status === 'finished'
+    )
     if (finishedGames.length === 0) {
       Taro.showToast({ title: '暂无可复盘的局', icon: 'none' })
       return

@@ -3,8 +3,6 @@ import { View, Text, Image, Textarea } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import { useAppStore } from '@/store/appStore'
-import { mockGames } from '@/data/games'
-import { mockReviews } from '@/data/reviews'
 import type { ReviewPlayer } from '@/types/review'
 import { formatTime } from '@/utils/format'
 import styles from './index.module.scss'
@@ -13,7 +11,7 @@ type Preference = '阵营' | '情感' | '都喜欢' | '未标记'
 const PREFERENCE_OPTIONS: Preference[] = ['阵营', '情感', '都喜欢']
 
 const ReviewPage: React.FC = () => {
-  const { games, setGames, reviews, setReviews, addReview, currentUser } = useAppStore()
+  const { games, reviews, addReview, currentUser } = useAppStore()
 
   const [reviewId, setReviewId] = useState<string>('')
   const [mode, setMode] = useState<'create' | 'detail'>('create')
@@ -22,9 +20,6 @@ const ReviewPage: React.FC = () => {
   const [comment, setComment] = useState('')
 
   useEffect(() => {
-    if (games.length === 0) setGames(mockGames)
-    if (reviews.length === 0) setReviews(mockReviews)
-
     const params = Taro.getCurrentInstance().router?.params || {}
     if (params.reviewId) {
       setReviewId(params.reviewId)
@@ -40,7 +35,12 @@ const ReviewPage: React.FC = () => {
   }, [mode, reviewId, reviews])
 
   const availableGames = useMemo(() => {
-    return games.filter((g) => g.players.some((p) => p.id === currentUser.id))
+    return games.filter((g) =>
+      g.players.some((p) => p.id === currentUser.id) ||
+      g.organizerId === currentUser.id ||
+      g.status === 'locked' ||
+      g.status === 'finished'
+    )
   }, [games, currentUser.id])
 
   const selectedGame = useMemo(() => {

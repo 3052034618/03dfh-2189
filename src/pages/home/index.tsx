@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { View, Text, ScrollView } from '@tarojs/components'
 import classnames from 'classnames'
 import { useAppStore } from '@/store/appStore'
-import { mockGames } from '@/data/games'
 import GameCard from '@/components/GameCard'
 import EmptyState from '@/components/EmptyState'
 import styles from './index.module.scss'
@@ -11,16 +10,16 @@ const FILTER_TABS = ['全部', '我的车圈', '新手友好', '硬核车', '情
 
 const HomePage: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('全部')
-  const { currentUser, games, setGames } = useAppStore()
+  const { currentUser, games, circles } = useAppStore()
 
-  useEffect(() => {
-    setGames(mockGames)
-  }, [])
+  const myCircleIds = useMemo(() => {
+    return circles.filter((c) => c.isJoined).map((c) => c.id)
+  }, [circles])
 
   const filteredGames = games.filter((game) => {
     switch (activeFilter) {
       case '我的车圈':
-        return game.circleId === 'c001' || game.circleId === 'c002' || game.circleId === 'c003' || game.circleId === 'c006' || game.circleId === 'c007'
+        return myCircleIds.includes(game.circleId)
       case '新手友好':
         return game.tags.includes('新手')
       case '硬核车':

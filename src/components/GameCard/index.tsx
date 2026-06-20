@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
+import { useAppStore } from '@/store/appStore'
 import type { Game } from '@/types/game'
 import { formatTime, formatCost } from '@/utils/format'
 import Tag from '@/components/Tag'
@@ -13,7 +14,13 @@ interface GameCardProps {
 }
 
 const GameCard: React.FC<GameCardProps> = ({ game }) => {
+  const { currentUser } = useAppStore()
   const isFull = game.currentPlayers >= game.playerCount
+
+  const myWaitlistPosition = useMemo(() => {
+    const idx = game.waitlist.findIndex((p) => p.id === currentUser.id)
+    return idx >= 0 ? idx + 1 : 0
+  }, [game.waitlist, currentUser.id])
 
   const handleClick = () => {
     Taro.navigateTo({ url: `/pages/gameDetail/index?id=${game.id}` })
@@ -72,7 +79,14 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
         </View>
       </View>
 
-      {isFull && game.waitlistCount > 0 && (
+      {myWaitlistPosition > 0 && (
+        <View className={classnames(styles.waitlistBanner, styles.myWaitlistBanner)}>
+          <Text className={styles.waitlistText}>
+            🔥 候补排队中 · 你是第 {myWaitlistPosition} 位
+          </Text>
+        </View>
+      )}
+      {myWaitlistPosition === 0 && isFull && game.waitlistCount > 0 && (
         <View className={styles.waitlistBanner}>
           <Text className={styles.waitlistText}>
             候补排队中 {game.waitlistCount} 人

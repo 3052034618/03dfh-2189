@@ -1,20 +1,225 @@
 @use '@/styles/variables.scss' as *;
 
-.container {
-  @include flex-center;
-  flex-direction: column;
+.page {
   min-height: 100vh;
   background-color: $color-bg-page;
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
 }
 
-.title {
+.cover {
+  position: relative;
+  width: 100%;
+  height: 320rpx;
+  overflow: hidden;
+}
+
+.coverImage {
+  width: 100%;
+  height: 100%;
+}
+
+.coverMask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+}
+
+.coverContent {
+  position: absolute;
+  left: $spacing-lg;
+  right: $spacing-lg;
+  bottom: $spacing-lg;
+}
+
+.coverCategory {
+  font-size: $font-size-sm;
+  color: $color-text-white;
+  background-color: rgba(255,255,255,0.25);
+  padding: 6rpx 16rpx;
+  border-radius: $radius-sm;
+  margin-bottom: $spacing-sm;
+  display: inline-block;
+}
+
+.coverName {
+  font-size: $font-size-xl;
+  color: $color-text-white;
+  font-weight: $font-weight-semibold;
+  margin-bottom: $spacing-xs;
+  display: block;
+}
+
+.coverDesc {
+  font-size: $font-size-md;
+  color: rgba(255,255,255,0.9);
+  display: block;
+  @include text-ellipsis(2);
+}
+
+.infoCard {
+  background-color: $color-bg-card;
+  margin: -$spacing-md $spacing-lg 0;
+  padding: $spacing-lg;
+  border-radius: $radius-lg;
+  position: relative;
+  z-index: 2;
+  box-shadow: $shadow-card;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: $spacing-md;
+}
+
+.infoItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.infoNumber {
   font-size: $font-size-lg;
   color: $color-text-primary;
   font-weight: $font-weight-semibold;
-  margin-bottom: $spacing-sm;
+  margin-bottom: 4rpx;
 }
 
-.hint {
+.infoLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.infoDivider {
+  width: 1rpx;
+  height: 48rpx;
+  background-color: $color-divider;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  padding-top: $spacing-md;
+  border-top: 1rpx solid $color-divider;
+}
+
+.section {
+  padding: $spacing-lg;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.createBtn {
+  background-color: $color-primary;
+  padding: 10rpx 20rpx;
+  border-radius: $radius-round;
+}
+
+.createBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.tabs {
+  display: flex;
+  background-color: $color-bg-card;
+  border-radius: $radius-md;
+  padding: 6rpx;
+  margin-bottom: $spacing-md;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 14rpx 0;
+  border-radius: $radius-md;
+  transition: all 0.2s;
+}
+
+.tabActive {
+  background-color: $color-primary;
+}
+
+.tabText {
   font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
+.tabTextActive {
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.tabCount {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  background-color: $color-bg-page;
+  padding: 2rpx 10rpx;
+  border-radius: $radius-round;
+}
+
+.tabCountActive {
+  background-color: rgba(255,255,255,0.25);
+  color: $color-text-white;
+}
+
+.gameList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.bottomBar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: $spacing-md $spacing-lg calc($spacing-md + env(safe-area-inset-bottom));
+  background-color: $color-bg-card;
+  border-top: 1rpx solid $color-divider;
+  z-index: 100;
+}
+
+.joinBtn {
+  width: 100%;
+  height: 88rpx;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-lg;
+  @include flex-center;
+}
+
+.joinBtnJoined {
+  background: $color-bg-page;
+  border: 2rpx solid $color-border;
+}
+
+.joinBtnText {
+  font-size: $font-size-md;
+  color: $color-text-white;
+  font-weight: $font-weight-semibold;
+}
+
+.joinBtnJoined .joinBtnText {
   color: $color-text-tertiary;
 }

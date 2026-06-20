@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { View, Text, ScrollView, Image, Input } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import { useAppStore } from '@/store/appStore'
-import { mockCircles } from '@/data/circles'
 import CircleCard from '@/components/CircleCard'
 import EmptyState from '@/components/EmptyState'
 import Modal from '@/components/Modal'
@@ -22,18 +21,12 @@ const PRESET_TAGS = ['新手', '欢乐', '硬核', '情感', '阵营', '推理',
 
 const CirclesPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('全部')
-  const { circles, setCircles, addCircle } = useAppStore()
+  const { circles, addCircle } = useAppStore()
   const [modalVisible, setModalVisible] = useState(false)
   const [newName, setNewName] = useState('')
   const [newDesc, setNewDesc] = useState('')
   const [newCategory, setNewCategory] = useState<CircleCategory>('类型')
   const [newTags, setNewTags] = useState<string[]>([])
-
-  useEffect(() => {
-    if (circles.length === 0) {
-      setCircles(mockCircles)
-    }
-  }, [])
 
   const myCircles = circles.filter((c) => c.isJoined)
 

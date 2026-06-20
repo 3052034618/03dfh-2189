@@ -8,16 +8,13 @@ import { formatTime, formatCost, getStatusText } from '@/utils/format'
 import styles from './index.module.scss'
 
 const GameDetailPage: React.FC = () => {
-  const { games, setGames, currentUser, joinGame, joinWaitlist } = useAppStore()
+  const { games, currentUser, joinGame, joinWaitlist } = useAppStore()
   const [gameId, setGameId] = useState('')
 
   useEffect(() => {
     const params = Taro.getCurrentInstance().router?.params
     const id = params?.id || 'g001'
     setGameId(id)
-    if (games.length === 0) {
-      setGames(mockGames)
-    }
   }, [])
 
   const game = useMemo(() => {
@@ -28,6 +25,11 @@ const GameDetailPage: React.FC = () => {
   const isFinished = game.status === 'finished' || game.status === 'cancelled'
   const hasJoined = game.players.some((p) => p.id === currentUser.id)
   const isWaitlisted = game.waitlist.some((p) => p.id === currentUser.id)
+
+  const myWaitlistPosition = useMemo(() => {
+    const idx = game.waitlist.findIndex((p) => p.id === currentUser.id)
+    return idx >= 0 ? idx + 1 : 0
+  }, [game.waitlist, currentUser.id])
 
   const emptySlots = game.playerCount - game.currentPlayers
 
@@ -51,8 +53,8 @@ const GameDetailPage: React.FC = () => {
   const getButtonText = () => {
     if (isFinished) return '已结束'
     if (hasJoined) return '已报名'
-    if (isWaitlisted) return '已在候补'
-    if (isFull) return `加入候补 (${game.waitlistCount + 1}号)`
+    if (isWaitlisted) return `候补第 ${myWaitlistPosition} 位`
+    if (isFull) return `加入候补 (第 ${game.waitlistCount + 1} 位)`
     return '立即报名'
   }
 
@@ -158,17 +160,47 @@ const GameDetailPage: React.FC = () => {
               <Text className={styles.sectionCount}>{game.waitlistCount}人</Text>
             </View>
             {game.waitlist.map((player, idx) => (
-              <View key={player.id} className={styles.waitlistItem}>
-                <View className={styles.waitlistNumber}>
-                  <Text className={styles.waitlistNumberText}>{idx + 1}</Text>
+              <View
+                key={player.id}
+                className={classnames(
+                  styles.waitlistItem,
+                  player.id === currentUser.id && styles.waitlistItemMine
+                )}
+              >
+                <View
+                  className={classnames(
+                    styles.waitlistNumber,
+                    player.id === currentUser.id && styles.waitlistNumberMine
+                  )}
+                >
+                  <Text
+                    className={classnames(
+                      styles.waitlistNumberText,
+                      player.id === currentUser.id && styles.waitlistNumberTextMine
+                    )}
+                  >
+                    {idx + 1}
+                  </Text>
                 </View>
                 <Image
                   className={styles.waitlistAvatar}
                   src={player.avatar}
                   mode="aspectFill"
                 />
-                <Text className={styles.waitlistName}>{player.name}</Text>
-                <Text className={styles.waitlistTime}>{formatTime(player.joinedAt)}</Text>
+                <View className={styles.waitlistInfo}>
+                  <Text className={styles.waitlistName}>
+                    {player.name}
+                    {player.id === currentUser.id && (
+                      <Text className={styles.waitlistMineTag}>（我）</Text>
+                    )}
+                  </Text>
+                  <Text className={styles.waitlistTime}>{formatTime(player.joinedAt)}</Text>
+                </View>
+                {idx === 0 && (
+                  <View className={styles.waitlistTopBadge}>
+                    <Text className={styles.waitlistTopBadgeText}>顺位第一</Text>
+                  </View>
+                )}
               </View>
             ))}
           </View>

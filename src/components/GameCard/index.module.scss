@@ -143,8 +143,16 @@
   @include flex-center;
 }
 
+.myWaitlistBanner {
+  background-color: rgba(253, 121, 168, 0.15);
+}
+
 .waitlistText {
   font-size: $font-size-sm;
   color: $color-accent-light;
   font-weight: $font-weight-medium;
+}
+
+.myWaitlistBanner .waitlistText {
+  color: $color-accent;
 }
